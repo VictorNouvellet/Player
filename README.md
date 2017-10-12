@@ -18,13 +18,11 @@ This app consists in:
 ## Installation Requirements
 
 - [Xcode](https://developer.apple.com/xcode/)
-- [Cocoapods](https://guides.cocoapods.org/using/getting-started.html) ≥1.2.0
 
 ## Installation
 
 1. Clone or [download](https://github.com/VictorNouvellet/Player/archive/master.zip) project.
-- From root project directory in Terminal (the one where Podfile file is), run `pod repo update` to update source repos and then run `pod install`. It will install needed pods.
-- Run `open Player.xcworkspace` to open the project workspace in Xcode.
+- Open the project "Player.xcodeproj" in Xcode
 - Make sure your device is connected to your computer and Build & Run by using ⌘+R from Xcode.
 
 ## Authors
