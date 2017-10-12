@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,29 +26,49 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCell" textLabel="98w-uM-6pq" detailTextLabel="pSm-mr-izR" style="IBUITableViewCellStyleSubtitle" id="gl1-MB-4XJ">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCell" rowHeight="70" id="gl1-MB-4XJ" customClass="SongCell" customModule="Player" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gl1-MB-4XJ" id="Z1a-KA-evq">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="98w-uM-6pq">
-                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist name loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKC-t7-9k8">
+                                            <rect key="frame" x="65" y="36.5" width="309" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bnP-Ac-5R9">
+                                            <rect key="frame" x="8" y="9.5" width="50.5" height="50.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="bnP-Ac-5R9" secondAttribute="height" multiplier="1:1" id="9nz-wO-Exa"/>
+                                                <constraint firstAttribute="height" constant="50.5" id="Md2-KL-mK3"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song name loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiw-tL-has">
+                                            <rect key="frame" x="64" y="13.5" width="309.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pSm-mr-izR">
-                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bnP-Ac-5R9" firstAttribute="centerY" secondItem="Z1a-KA-evq" secondAttribute="centerY" id="2Ib-HR-jAr"/>
+                                        <constraint firstItem="jiw-tL-has" firstAttribute="leading" secondItem="bnP-Ac-5R9" secondAttribute="trailing" constant="6" id="PPn-TG-oLR"/>
+                                        <constraint firstItem="bnP-Ac-5R9" firstAttribute="leading" secondItem="Z1a-KA-evq" secondAttribute="leading" constant="8" id="PTi-Jh-Wdf"/>
+                                        <constraint firstItem="jiw-tL-has" firstAttribute="top" secondItem="bnP-Ac-5R9" secondAttribute="top" constant="4" id="Sc2-bb-g6f"/>
+                                        <constraint firstItem="wKC-t7-9k8" firstAttribute="leading" secondItem="bnP-Ac-5R9" secondAttribute="trailing" constant="6" id="b5m-h5-c2C"/>
+                                        <constraint firstAttribute="trailing" secondItem="jiw-tL-has" secondAttribute="trailing" constant="1" id="pQK-Sc-iQC"/>
+                                        <constraint firstItem="wKC-t7-9k8" firstAttribute="top" secondItem="jiw-tL-has" secondAttribute="bottom" constant="2" id="qKy-6c-l0l"/>
+                                        <constraint firstAttribute="trailing" secondItem="wKC-t7-9k8" secondAttribute="trailing" constant="1" id="vVV-9P-JIp"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="artistLabel" destination="wKC-t7-9k8" id="Uas-11-aMJ"/>
+                                    <outlet property="artworkImageView" destination="bnP-Ac-5R9" id="SZt-Do-IOJ"/>
+                                    <outlet property="nameLabel" destination="jiw-tL-has" id="x2E-tr-Cmj"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

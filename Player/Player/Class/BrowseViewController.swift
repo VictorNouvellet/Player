@@ -67,15 +67,19 @@ extension BrowseViewController {
         
         // Open the player
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
 }
 
 // MARK: - Table view data source methods extension
 extension BrowseViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath)
         let song = self.songs[indexPath.row]
-        cell.textLabel?.text = song.name
-        cell.detailTextLabel?.text = song.artistName
+        let cell: SongCell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath) as! SongCell
+        cell.configure(song: song)
+        
         return cell
     }
     

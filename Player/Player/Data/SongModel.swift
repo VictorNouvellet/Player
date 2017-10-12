@@ -12,8 +12,7 @@ struct SongModel {
     let iTunesId: String
     let name: String
     let artistName: String
-    let artworkUrlSmall: String
-    let artworkUrlBig: String
+    let artworkUrl: String
     let iTunesPreviewUrl: String
     let iTunesUrl: String
 }
@@ -60,22 +59,14 @@ extension SongModel {
             artistName = imArtist["label"] as? String
         }
         
-        var artworkUrlSmall: String? = nil
-        var artworkUrlBig: String? = nil
+        var artworkUrl: String? = nil
         if let imImages = safeSongObject["im:image"] as? Array<Dictionary<String, Any>> {
             for image in imImages {
                 if let attributes = image["attributes"] as? Dictionary<String, Any>,
                     let height = attributes["height"] as? String,
-                    let imageUrl = image["label"] as? String {
-                    switch height {
-                    case "60":
-                        artworkUrlSmall = imageUrl
-                        break
-                    case "170":
-                        artworkUrlBig = imageUrl
-                    default:
-                        break
-                    }
+                    let imageUrl = image["label"] as? String, height == "170" {
+                    
+                    artworkUrl = imageUrl
                 }
             }
         }
@@ -100,8 +91,8 @@ extension SongModel {
             }
         }
         
-        if (iTunesId != nil) && (name != nil) && (artistName != nil) && (artworkUrlSmall != nil) && (artworkUrlBig != nil) {
-            return SongModel(iTunesId: iTunesId!, name: name!, artistName: artistName!, artworkUrlSmall: artworkUrlSmall!, artworkUrlBig: artworkUrlBig!, iTunesPreviewUrl: iTunesPreviewUrl!, iTunesUrl: iTunesUrl!)
+        if (iTunesId != nil) && (name != nil) && (artistName != nil) && (artworkUrl != nil) {
+            return SongModel(iTunesId: iTunesId!, name: name!, artistName: artistName!, artworkUrl: artworkUrl!, iTunesPreviewUrl: iTunesPreviewUrl!, iTunesUrl: iTunesUrl!)
         }
         
         return nil
