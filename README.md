@@ -39,7 +39,7 @@ This app consists in:
 ## Todo
 - Add player screen
 - Use [affiliate documentation](https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup) to search in iTunes database. [Example](https://itunes.apple.com/search?country=FR&entity=song&media=music&attribute=ratingIndex).
-- Add icon
-- Use cache
+- Add Accessibility
+- Use NSCache
 - Update README with icon
 - Choose between the two top song URLs ([1](https://itunes.apple.com/fr/rss/topsongs/limit=100/json) or [2](https://rss.itunes.apple.com/api/v1/fr/apple-music/top-songs/all/100/explicit.json))

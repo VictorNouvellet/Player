@@ -55,7 +55,7 @@
                             <outlet property="delegate" destination="Y72-aB-VHp" id="dbR-Zu-A8E"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Browse" id="d9m-PJ-Ewb"/>
+                    <navigationItem key="navigationItem" title="Browse" largeTitleDisplayMode="never" id="d9m-PJ-Ewb"/>
                     <connections>
                         <outlet property="searchBar" destination="iMU-SK-Ugd" id="ci0-xU-e8f"/>
                         <outlet property="searchDisplayController" destination="Azp-JY-x2n" id="kAZ-dJ-UAi"/>
@@ -79,8 +79,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DZN-nM-uFF" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jcz-Nt-ryM">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="jcz-Nt-ryM">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

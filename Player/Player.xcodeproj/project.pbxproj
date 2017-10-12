@@ -14,6 +14,7 @@
 		573B0C671F8F46A900C650D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 573B0C651F8F46A900C650D1 /* LaunchScreen.storyboard */; };
 		573B0C721F8F46A900C650D1 /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0C711F8F46A900C650D1 /* PlayerTests.swift */; };
 		57577EE41F8F545C00CEFEDD /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57577EE31F8F545C00CEFEDD /* APIClient.swift */; };
+		57577EE71F8F8B7E00CEFEDD /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57577EE61F8F8B7E00CEFEDD /* SongModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		573B0C711F8F46A900C650D1 /* PlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTests.swift; sourceTree = "<group>"; };
 		573B0C731F8F46A900C650D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57577EE31F8F545C00CEFEDD /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		57577EE61F8F8B7E00CEFEDD /* SongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +81,8 @@
 		573B0C5B1F8F46A900C650D1 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				57577EE51F8F8B4400CEFEDD /* Data */,
 				573B0C5C1F8F46A900C650D1 /* AppDelegate.swift */,
-				57577EE31F8F545C00CEFEDD /* APIClient.swift */,
 				573B0C5E1F8F46A900C650D1 /* BrowseViewController.swift */,
 				573B0C601F8F46A900C650D1 /* Main.storyboard */,
 				573B0C631F8F46A900C650D1 /* Assets.xcassets */,
@@ -97,6 +99,15 @@
 				573B0C731F8F46A900C650D1 /* Info.plist */,
 			);
 			path = PlayerTests;
+			sourceTree = "<group>";
+		};
+		57577EE51F8F8B4400CEFEDD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				57577EE31F8F545C00CEFEDD /* APIClient.swift */,
+				57577EE61F8F8B7E00CEFEDD /* SongModel.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +215,7 @@
 			files = (
 				573B0C5F1F8F46A900C650D1 /* BrowseViewController.swift in Sources */,
 				573B0C5D1F8F46A900C650D1 /* AppDelegate.swift in Sources */,
+				57577EE71F8F8B7E00CEFEDD /* SongModel.swift in Sources */,
 				57577EE41F8F545C00CEFEDD /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
