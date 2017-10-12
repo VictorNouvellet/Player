@@ -1,0 +1,7 @@
+# Project files
+./**/*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Pods
+Pods/
