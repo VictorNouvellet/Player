@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/4340716/31492320-ce95929e-af4a-11e7-80a9-c7f5f9cb2f98.png" alt="Player App" height="200" width="200"/>
+  <img src="https://user-images.githubusercontent.com/4340716/31493459-966e1616-af4f-11e7-8153-e0d792a76eff.png" alt="Player App" height="200" width="200"/>
 </p>
 
 # Player App 
