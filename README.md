@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/4340716/31492320-ce95929e-af4a-11e7-80a9-c7f5f9cb2f98.png" alt="Player App" height="200" width="200"/>
+</p>
+
 # Player App 
 [![GitHub license](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://raw.githubusercontent.com/VictorNouvellet/Player/master/LICENCE) ![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)
 
