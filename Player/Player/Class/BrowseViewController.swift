@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import AVKit
 
 class BrowseViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
     var songs: Array<SongModel> = []
+    var player = AVPlayer()
     
     // MARK: Parent methods
     
@@ -64,8 +66,18 @@ class BrowseViewController: UITableViewController {
 extension BrowseViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let song = self.songs[indexPath.row]
         
         // Open the player
+        self.player.pause()
+        
+        if let safePreviewUrl = URL(string: song.iTunesPreviewUrl) {
+            self.player = AVPlayer(url: safePreviewUrl)
+            self.player.play()
+            
+        } else {
+            print("Preview not available")
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
