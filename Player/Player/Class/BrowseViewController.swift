@@ -14,7 +14,6 @@ class BrowseViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var songs: Array<SongModel> = []
-    var player = AVPlayer()
     
     // MARK: Parent methods
     
@@ -29,6 +28,7 @@ class BrowseViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         // Fix Apple broken behavior with collapsing large titles
         // Problem submitted here: https://forums.developer.apple.com/thread/83262
         self.navigationItem.largeTitleDisplayMode = .always
@@ -37,6 +37,20 @@ class BrowseViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier! {
+        case "goto_player":
+            if let playerVC = segue.destination as? PlayerViewController, let song = sender as? SongModel {
+                playerVC.song = song
+            }
+            break
+        default:
+            break
+        }
     }
     
     // MARK: Private methods
@@ -69,15 +83,7 @@ extension BrowseViewController {
         let song = self.songs[indexPath.row]
         
         // Open the player
-        self.player.pause()
-        
-        if let safePreviewUrl = URL(string: song.iTunesPreviewUrl) {
-            self.player = AVPlayer(url: safePreviewUrl)
-            self.player.play()
-            
-        } else {
-            print("Preview not available")
-        }
+        self.performSegue(withIdentifier: "goto_player", sender: song)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
