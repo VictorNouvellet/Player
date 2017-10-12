@@ -30,7 +30,7 @@ This app consists in:
  * Player is released under a New BSD License. See LICENSE file for details.
 
 ## Related
- * This is the [SOUNDS](https://www.sounds.am/) challenge.
+ * This is the [SOUNDS](https://www.sounds.am/) [challenge](https://gist.github.com/matts2cant/a5dff9aa0528615505bb2bb6ec71877e).
 
 ## Todo
 - Add player screen
