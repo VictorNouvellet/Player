@@ -37,10 +37,11 @@ This app consists in:
  * This is the [SOUNDS](https://www.sounds.am/) [challenge](https://gist.github.com/matts2cant/a5dff9aa0528615505bb2bb6ec71877e).
 
 ## Todo
+- Add Next/Previous
+- Asynchronously download m4a files
+- Use NSCache for artwork image and song information
 - Add VIPER design pattern
-- Add searchable results
 - Use [affiliate documentation](https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup) to search in iTunes database. [Example](https://itunes.apple.com/search?country=FR&entity=song&media=music&attribute=ratingIndex).
 - Add Accessibility
-- Use NSCache for artwork image and song information
 - Update README with icon
 - Choose between the two top song URLs ([1](https://itunes.apple.com/fr/rss/topsongs/limit=100/json) or [2](https://rss.itunes.apple.com/api/v1/fr/apple-music/top-songs/all/100/explicit.json))
