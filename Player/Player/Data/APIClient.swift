@@ -123,7 +123,6 @@ class APIClient: NSObject {
             return
         }
         let url: URL = self.iTunesRSSURL(path: path, params: nil)
-        print(url.debugDescription)
         self.getITURL(URL: url, completion: completion)
     }
 }

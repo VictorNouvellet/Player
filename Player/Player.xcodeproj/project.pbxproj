@@ -19,6 +19,7 @@
 		57577EEA1F8FA5CB00CEFEDD /* UIImageView+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57577EE91F8FA5CB00CEFEDD /* UIImageView+Player.swift */; };
 		57577EEE1F8FA76900CEFEDD /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57577EED1F8FA76900CEFEDD /* SongCell.swift */; };
 		576A6C731F8FD26A00D6C623 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576A6C721F8FD26A00D6C623 /* PlayerViewController.swift */; };
+		5784DD6F1F929EF600ECC750 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5784DD6E1F929EF600ECC750 /* PlayerManager.swift */; };
 		B5A1F1BE163C8855ACAA034D /* Pods_PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C0463A5BAFE54EBC83B92C /* Pods_PlayerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		57577EE91F8FA5CB00CEFEDD /* UIImageView+Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Player.swift"; sourceTree = "<group>"; };
 		57577EED1F8FA76900CEFEDD /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		576A6C721F8FD26A00D6C623 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		5784DD6E1F929EF600ECC750 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		57CD5469EE91E0439E6C4362 /* Pods_Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D065C6D6DBE7A496AA0C2295 /* Pods-PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerTests/Pods-PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
 		DDD60C4BD1A82ED3FFFC5E62 /* Pods-PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerTests/Pods-PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		573B0C5B1F8F46A900C650D1 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				5784DD701F92A37100ECC750 /* Manager */,
 				57577EE81F8FA59500CEFEDD /* Category */,
 				57577EE51F8F8B4400CEFEDD /* Data */,
 				57577EEB1F8FA70700CEFEDD /* Class */,
@@ -145,6 +148,14 @@
 				576A6C721F8FD26A00D6C623 /* PlayerViewController.swift */,
 			);
 			path = Class;
+			sourceTree = "<group>";
+		};
+		5784DD701F92A37100ECC750 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				5784DD6E1F929EF600ECC750 /* PlayerManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		B360565533AAF2DFF5294C9A /* Pods */ = {
@@ -386,6 +397,7 @@
 				576A6C731F8FD26A00D6C623 /* PlayerViewController.swift in Sources */,
 				57577EE71F8F8B7E00CEFEDD /* SongModel.swift in Sources */,
 				57577EEE1F8FA76900CEFEDD /* SongCell.swift in Sources */,
+				5784DD6F1F929EF600ECC750 /* PlayerManager.swift in Sources */,
 				57577EE41F8F545C00CEFEDD /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
