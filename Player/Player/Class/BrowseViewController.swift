@@ -7,11 +7,12 @@
 //
 
 import UIKit
-import AVKit
 
-class BrowseViewController: UITableViewController {
+class BrowseViewController: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet var tableView: UITableView!
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     var songs: Array<SongModel> = []
     
@@ -20,8 +21,14 @@ class BrowseViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set Table View delegate using extension's method
+        self.configureTableViewDelegate()
+        
+        // Set Table View datasource using extension's method
+        self.configureTableViewDataSource()
+        
         // Set Search bar delegate using extension's method
-        self.configureSearchBarDelegate()
+        self.configureSearchController()
         
         // Fetch songs
         self.fetchTop100songs()
@@ -33,24 +40,14 @@ class BrowseViewController: UITableViewController {
         // Problem submitted here: https://forums.developer.apple.com/thread/83262
         self.navigationItem.largeTitleDisplayMode = .always
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        switch segue.identifier! {
-        case "goto_player":
-            if let playerVC = segue.destination as? PlayerViewController, let song = sender as? SongModel {
-                playerVC.song = song
-            }
-            break
-        default:
-            break
-        }
     }
     
     // MARK: Private methods
@@ -71,29 +68,40 @@ class BrowseViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-    
-    // MARK: Public methods
-    
 }
 
 // MARK: - Table view delegate methods extension
-extension BrowseViewController {
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension BrowseViewController: UITableViewDelegate {
+    func configureTableViewDelegate() {
+        self.tableView.delegate = self
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let song = self.songs[indexPath.row]
+        
+        if PlayerManager.shared.song == nil || PlayerManager.shared.song! != song {
+            // Set new song
+            PlayerManager.shared.song = song
+            PlayerManager.shared.play()
+        }
         
         // Open the player
         self.performSegue(withIdentifier: "goto_player", sender: song)
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
 }
 
 // MARK: - Table view data source methods extension
-extension BrowseViewController {
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+extension BrowseViewController: UITableViewDataSource {
+    func configureTableViewDataSource() {
+        self.tableView.dataSource = self
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let song = self.songs[indexPath.row]
         let cell: SongCell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath) as! SongCell
         cell.configure(song: song)
@@ -101,19 +109,54 @@ extension BrowseViewController {
         return cell
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let songCell: SongCell = cell as? SongCell else {
+            return
+        }
+        songCell.updateColor()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.songs.count
     }
 }
 
 // MARK: - Search bar delegate methods extension
-extension BrowseViewController: UISearchBarDelegate {
-    func configureSearchBarDelegate() {
-        self.searchBar.delegate = self
+extension BrowseViewController: UISearchControllerDelegate {
+    func configureSearchController() {
+        
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = true
+            
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+        
+        searchController.searchBar.searchBarStyle = .minimal
+        definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = false
+    }
+    
+    func didPresentSearchController(_ searchController: UISearchController) {
+        print("Did present search controller")
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        print("Did dismiss search controller")
     }
 }
 
+extension BrowseViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        // TODO: Do more...
+    }
+    
+    
+}
