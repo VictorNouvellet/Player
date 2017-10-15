@@ -108,7 +108,7 @@ class APIClient: NSObject {
     /// Creates the URL to get the top songs list of phone's country.
     private func iTunesRSSTopSongPath(limit: Int) -> String? {
         guard let countryCode = Locale.current.regionCode else {
-            print("Error: Could not get phone's region code")
+            log.error("Error: Could not get phone's region code")
             return nil
         }
         let dataType = "json"

@@ -7,6 +7,28 @@
 //
 
 import UIKit
+import XCGLogger
+
+let log: XCGLogger = {
+    let log = XCGLogger.default
+    
+    #if DEBUG
+        log.setup(level: .verbose, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true)
+    #else
+        log.setup(level: .severe, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true)
+    #endif
+    
+    let emojiLogFormatter = PrePostFixLogFormatter()
+    emojiLogFormatter.apply(prefix: "🗯 ", postfix: "", to: .verbose)
+    emojiLogFormatter.apply(prefix: "🔹 ", postfix: "", to: .debug)
+    emojiLogFormatter.apply(prefix: "ℹ️ ", postfix: "", to: .info)
+    emojiLogFormatter.apply(prefix: "⚠️ ", postfix: "", to: .warning)
+    emojiLogFormatter.apply(prefix: "‼️ ", postfix: "", to: .error)
+    emojiLogFormatter.apply(prefix: "💣 ", postfix: "", to: .severe)
+    log.formatters = [emojiLogFormatter]
+    
+    return log
+}()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

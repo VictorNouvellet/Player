@@ -37,7 +37,7 @@ class PlayerViewController: UIViewController {
         
         // Configure view
         guard let safeSong = song, let safePreviewUrl = URL(string:safeSong.iTunesPreviewUrl) else {
-            print("No song loaded to player because the iTunes Preview URL is wrong")
+            log.error("No song loaded to player because the iTunes Preview URL is wrong")
             return
         }
         

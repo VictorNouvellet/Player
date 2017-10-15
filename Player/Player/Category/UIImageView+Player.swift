@@ -17,12 +17,12 @@ extension UIImageView {
         
         URLSession.shared.dataTask(with: safeUrl) { (data, response, error) in
             if error != nil {
-                print("Failed fetching image: \(error.debugDescription)")
+                log.error("Failed fetching image: \(error.debugDescription)")
                 return
             }
             
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                print("Error with HTTPURLResponse or statusCode")
+                log.error("Error with HTTPURLResponse or statusCode")
                 return
             }
             

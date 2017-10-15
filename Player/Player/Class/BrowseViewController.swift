@@ -54,7 +54,7 @@ class BrowseViewController: UIViewController {
     private func fetchTop100songs() {
         APIClient.shared.top100Songs { (error, response) in
             guard error == nil else {
-                print("Error when fetching songs")
+                log.error("Error when fetching songs")
                 self.songs = []
                 self.tableView.reloadData()
                 return
@@ -63,7 +63,7 @@ class BrowseViewController: UIViewController {
             if newSongs.count != 0 {
                 self.songs = newSongs
             } else {
-                print("No songs")
+                log.error("No songs")
             }
             self.tableView.reloadData()
         }
@@ -145,18 +145,17 @@ extension BrowseViewController: UISearchControllerDelegate {
     }
     
     func didPresentSearchController(_ searchController: UISearchController) {
-        print("Did present search controller")
+        log.debug("Did present search controller")
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        print("Did dismiss search controller")
+        log.debug("Did dismiss search controller")
     }
 }
 
 extension BrowseViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         // TODO: Do more...
+        log.debug("Update Search results")
     }
-    
-    
 }

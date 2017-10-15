@@ -53,12 +53,12 @@ class PlayerManager: NSObject {
     
     func next() {
         self.songEnded = false
-        print("Next: Feature not available yet...")
+        log.debug("Next: Feature not available yet...")
     }
     
     func previous() {
         self.songEnded = false
-        print("Previous: Feature not available yet...")
+        log.debug("Previous: Feature not available yet...")
     }
     
     // MARK: - Private methods
@@ -70,7 +70,7 @@ class PlayerManager: NSObject {
             self.player = try AVAudioPlayer(data: soundData)
             self.setupPlayerDelegate()
         } catch let error as NSError {
-            print("Error playing new iTunes preview : \(error.debugDescription)")
+            log.error("Error playing new iTunes preview : \(error.debugDescription)")
         }
     }
 }
@@ -82,7 +82,7 @@ extension PlayerManager: AVAudioPlayerDelegate {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let error as NSError {
-            print("Error setting audio session : \(error)")
+            log.error("Error setting audio session : \(error)")
         }
     }
     

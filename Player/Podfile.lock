@@ -3,15 +3,20 @@ PODS:
     - MarqueeLabel/ObjC (= 3.0.3)
   - MarqueeLabel/ObjC (3.0.3)
   - MBProgressHUD (1.0.0)
+  - XCGLogger (4.0.0):
+    - XCGLogger/Core (= 4.0.0)
+  - XCGLogger/Core (4.0.0)
 
 DEPENDENCIES:
   - MarqueeLabel
   - MBProgressHUD
+  - XCGLogger (~> 4.0.0)
 
 SPEC CHECKSUMS:
   MarqueeLabel: 355b604a19c16a8736194a21327fadccc41b9160
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: 97baa45630721b6699e70bcfd298781c008a495a
+PODFILE CHECKSUM: f2a4a16e501aeeb9bf17eb9134fe0a5b11b5ddad
 
 COCOAPODS: 1.3.1

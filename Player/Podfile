@@ -8,6 +8,7 @@ target 'Player' do
   # Pods for Player
   pod 'MBProgressHUD'
   pod 'MarqueeLabel'
+  pod 'XCGLogger', '~> 4.0.0'
 
   target 'PlayerTests' do
     inherit! :search_paths
