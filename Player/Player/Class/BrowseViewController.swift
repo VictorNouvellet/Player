@@ -30,6 +30,9 @@ class BrowseViewController: UIViewController {
         // Set Search bar delegate using extension's method
         self.configureSearchController()
         
+        // Set Previewing delegate using extension's method
+        self.configurePreviewingDelegate()
+        
         // Fetch songs
         self.fetchTop100songs()
     }
@@ -38,7 +41,9 @@ class BrowseViewController: UIViewController {
         super.viewDidAppear(animated)
         // Fix Apple broken behavior with collapsing large titles
         // Problem submitted here: https://forums.developer.apple.com/thread/83262
-        self.navigationItem.largeTitleDisplayMode = .always
+        if #available(iOS 11.0, *) {
+            self.navigationItem.largeTitleDisplayMode = .always
+        }
     }
     
     deinit {
@@ -68,6 +73,17 @@ class BrowseViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
+    
+    private func openPlayer(song: SongModel) {
+        if PlayerManager.shared.song == nil || PlayerManager.shared.song! != song {
+            // Set new song
+            PlayerManager.shared.song = song
+            PlayerManager.shared.play()
+        }
+        
+        // Open the player
+        self.performSegue(withIdentifier: "goto_player", sender: song)
+    }
 }
 
 // MARK: - Table view delegate methods extension
@@ -80,14 +96,7 @@ extension BrowseViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let song = self.songs[indexPath.row]
         
-        if PlayerManager.shared.song == nil || PlayerManager.shared.song! != song {
-            // Set new song
-            PlayerManager.shared.song = song
-            PlayerManager.shared.play()
-        }
-        
-        // Open the player
-        self.performSegue(withIdentifier: "goto_player", sender: song)
+        self.openPlayer(song: song)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -157,5 +166,37 @@ extension BrowseViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         // TODO: Do more...
         log.debug("Update Search results")
+    }
+}
+
+extension BrowseViewController: UIViewControllerPreviewingDelegate {
+    func configurePreviewingDelegate() {
+        if self.traitCollection.forceTouchCapability == .available {
+            self.registerForPreviewing(with: self, sourceView: self.tableView)
+        }
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = self.tableView.indexPathForRow(at: location) {
+            
+            previewingContext.sourceRect = self.tableView.rectForRow(at:indexPath)
+            
+            let song = self.songs[indexPath.row]
+            
+            return viewControllerForSong(song: song)
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let songDetailVC = viewControllerToCommit as? SongDetailViewController, let song = songDetailVC.song {
+            openPlayer(song:song)
+        }
+    }
+    
+    private func viewControllerForSong(song: SongModel) -> UIViewController {
+        let songDetailVC = SongDetailViewController()
+        songDetailVC.song = song
+        return songDetailVC
     }
 }
