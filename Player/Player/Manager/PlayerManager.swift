@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import MediaPlayer
 
 class PlayerManager: NSObject {
     
@@ -92,4 +91,3 @@ extension PlayerManager: AVAudioPlayerDelegate {
         NotificationCenter.default.post(name: PlayerManager.playerStateChangedNotificationName, object: nil)
     }
 }
-

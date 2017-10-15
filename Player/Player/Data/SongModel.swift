@@ -98,3 +98,9 @@ extension SongModel {
         return nil
     }
 }
+
+extension SongModel: Equatable {
+    static func ==(lhs: SongModel, rhs: SongModel) -> Bool {
+        return lhs.iTunesId == rhs.iTunesId
+    }
+}
