@@ -150,6 +150,7 @@ class PlayerViewController: UIViewController {
         
         if let image = SongModel.imagesCache.object(forKey: safeUrlString as NSString) {
             // Image found in cache
+            self.backgroundImageView.image = image
             self.artworkImageView.image = image
             return
         }
