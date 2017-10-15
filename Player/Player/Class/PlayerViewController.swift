@@ -18,6 +18,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var playButton: UIButton!
     @IBOutlet var pauseButton: UIButton!
+    @IBOutlet weak var currentTimeSlider: UISlider!
     
     var song : SongModel? {
         return PlayerManager.shared.song
@@ -27,6 +28,9 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup slider
+        setupSlider()
         
         // Setup play/pause notification
         setupNotification()
@@ -70,6 +74,10 @@ class PlayerViewController: UIViewController {
         PlayerManager.shared.next()
     }
     
+    @IBAction func currentTimeSliderValueChanged(_ sender: Any) {
+        PlayerManager.shared.player?.currentTime = TimeInterval(self.currentTimeSlider.value)
+    }
+    
     // MARK: public methods
     
     @objc func onPlayerStateUpdateNotification(_ notification: Notification) {
@@ -100,6 +108,18 @@ class PlayerViewController: UIViewController {
         self.artistLabel.text = song.artistName
         self.backgroundImageView.setImageFromURL(url: song.artworkUrl)
         self.artworkImageView.setImageFromURL(url: song.artworkUrl)
+        self.currentTimeSlider.maximumValue = Float(PlayerManager.shared.player?.duration ?? 0)
+        Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(PlayerViewController.updatePlayerCurrentTime), userInfo: song, repeats: true)
+        self.updatePlayerCurrentTime()
+    }
+    
+    @objc func updatePlayerCurrentTime() {
+        guard let player = PlayerManager.shared.player else {
+            log.error("Player not available")
+            return
+        }
+        
+        self.currentTimeSlider.value = Float(player.currentTime)
     }
     
     private func setupNotification() {
@@ -109,4 +129,8 @@ class PlayerViewController: UIViewController {
                                                object: nil)
     }
     
+    private func setupSlider() {
+        self.currentTimeSlider.setThumbImage(#imageLiteral(resourceName: "ThumbAudio"), for: .normal)
+        self.currentTimeSlider.setThumbImage(#imageLiteral(resourceName: "ThumbAudioSelected"), for: .highlighted)
+    }
 }

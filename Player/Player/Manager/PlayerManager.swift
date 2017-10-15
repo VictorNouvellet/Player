@@ -68,6 +68,7 @@ class PlayerManager: NSObject {
         do {
             let soundData = try Data(contentsOf: songUrl)
             self.player = try AVAudioPlayer(data: soundData)
+            self.player?.prepareToPlay()
             self.setupPlayerDelegate()
         } catch let error as NSError {
             log.error("Error playing new iTunes preview : \(error.debugDescription)")

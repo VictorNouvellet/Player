@@ -37,6 +37,8 @@ This app consists in:
  * This is the [SOUNDS](https://www.sounds.am/) [challenge](https://gist.github.com/matts2cant/a5dff9aa0528615505bb2bb6ec71877e).
 
 ## Todo
+- Add VIPER design pattern
+- Add searchable results
 - Use [affiliate documentation](https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/#lookup) to search in iTunes database. [Example](https://itunes.apple.com/search?country=FR&entity=song&media=music&attribute=ratingIndex).
 - Add Accessibility
 - Use NSCache for artwork image and song information

@@ -121,22 +121,6 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="bOk-Bq-3sy">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxW-ez-5z1" customClass="MarqueeLabel">
-                                            <rect key="frame" x="42" y="455" width="291" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcP-ib-B3N" customClass="MarqueeLabel">
-                                            <rect key="frame" x="42" y="415" width="291" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
@@ -147,6 +131,26 @@
                                     <action selector="collapseButtonTouched:" destination="eyQ-AR-J5M" eventType="touchUpInside" id="TFZ-TX-fzm"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxW-ez-5z1" customClass="MarqueeLabel">
+                                <rect key="frame" x="42" y="448.5" width="291" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcP-ib-B3N" customClass="MarqueeLabel">
+                                <rect key="frame" x="42" y="409" width="291" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="kao-wk-Ovx">
+                                <rect key="frame" x="40" y="492" width="295" height="31"/>
+                                <color key="minimumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="maximumTrackTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="currentTimeSliderValueChanged:" destination="eyQ-AR-J5M" eventType="valueChanged" id="Ia3-QX-SQa"/>
+                                </connections>
+                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-JL-Fy7">
                                 <rect key="frame" x="57" y="572" width="40" height="38"/>
                                 <constraints>
@@ -179,13 +183,6 @@
                                     <action selector="nextButtonTouched:" destination="eyQ-AR-J5M" eventType="touchUpInside" id="EgX-j8-VqJ"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="YuN-Rv-PVd">
-                                <rect key="frame" x="44" y="507" width="287" height="3"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </progressView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconPreview" translatesAutoresizingMaskIntoConstraints="NO" id="Iff-Jp-2Qu">
                                 <rect key="frame" x="44" y="96" width="287" height="287"/>
                                 <constraints>
@@ -206,20 +203,29 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Sbb-JL-Fy7" firstAttribute="leading" secondItem="Ygo-3H-4Pz" secondAttribute="leading" constant="57" id="5Hw-Zh-R3Q"/>
+                            <constraint firstItem="KcP-ib-B3N" firstAttribute="leading" secondItem="Ygo-3H-4Pz" secondAttribute="leading" constant="42" id="6xR-2R-X0h"/>
                             <constraint firstItem="xE4-yo-Qcb" firstAttribute="centerY" secondItem="Icl-7x-rUo" secondAttribute="centerY" id="8O1-CQ-e0U"/>
+                            <constraint firstItem="RxW-ez-5z1" firstAttribute="top" secondItem="KcP-ib-B3N" secondAttribute="bottom" constant="9" id="8jH-MU-HUf"/>
                             <constraint firstItem="jND-F0-M2K" firstAttribute="centerX" secondItem="NHk-BT-6oG" secondAttribute="centerX" id="9An-se-KBB"/>
                             <constraint firstItem="Ygo-3H-4Pz" firstAttribute="trailing" secondItem="b2r-ih-gwV" secondAttribute="trailing" constant="57" id="9C0-uN-iNU"/>
+                            <constraint firstItem="Ygo-3H-4Pz" firstAttribute="trailing" secondItem="kao-wk-Ovx" secondAttribute="trailing" constant="42" id="A5Q-lO-Ve3"/>
                             <constraint firstItem="xE4-yo-Qcb" firstAttribute="centerX" secondItem="Icl-7x-rUo" secondAttribute="centerX" id="Hnf-AV-fc0"/>
                             <constraint firstItem="Iff-Jp-2Qu" firstAttribute="leading" secondItem="NHk-BT-6oG" secondAttribute="leading" constant="44" id="Jcu-C1-cGq"/>
+                            <constraint firstItem="Ygo-3H-4Pz" firstAttribute="trailing" secondItem="RxW-ez-5z1" secondAttribute="trailing" constant="42" id="Lw0-xd-JV1"/>
+                            <constraint firstItem="RxW-ez-5z1" firstAttribute="leading" secondItem="Ygo-3H-4Pz" secondAttribute="leading" constant="42" id="MSi-KH-g36"/>
+                            <constraint firstItem="kao-wk-Ovx" firstAttribute="top" secondItem="RxW-ez-5z1" secondAttribute="bottom" constant="18" id="SBE-W3-ckG"/>
                             <constraint firstItem="Ygo-3H-4Pz" firstAttribute="bottom" secondItem="Icl-7x-rUo" secondAttribute="bottom" constant="30" id="TP1-B5-xE0"/>
                             <constraint firstItem="xE4-yo-Qcb" firstAttribute="width" secondItem="xE4-yo-Qcb" secondAttribute="height" multiplier="1:1" id="V5P-1Q-Ib0"/>
+                            <constraint firstItem="Icl-7x-rUo" firstAttribute="top" secondItem="kao-wk-Ovx" secondAttribute="bottom" constant="23" id="YhV-mo-brc"/>
                             <constraint firstItem="Iff-Jp-2Qu" firstAttribute="centerX" secondItem="NHk-BT-6oG" secondAttribute="centerX" id="ZMH-KG-iqa"/>
                             <constraint firstItem="Iff-Jp-2Qu" firstAttribute="centerX" secondItem="NHk-BT-6oG" secondAttribute="centerX" id="Zf7-n3-Opx"/>
+                            <constraint firstItem="kao-wk-Ovx" firstAttribute="leading" secondItem="Ygo-3H-4Pz" secondAttribute="leading" constant="42" id="bGJ-v7-34j"/>
                             <constraint firstItem="Iff-Jp-2Qu" firstAttribute="top" secondItem="jND-F0-M2K" secondAttribute="bottom" constant="36" id="e67-XA-VJl"/>
                             <constraint firstItem="jND-F0-M2K" firstAttribute="top" secondItem="Ygo-3H-4Pz" secondAttribute="top" constant="16" id="jda-fk-0GF"/>
                             <constraint firstItem="Icl-7x-rUo" firstAttribute="centerX" secondItem="NHk-BT-6oG" secondAttribute="centerX" id="qLU-jL-KT6"/>
                             <constraint firstItem="Sbb-JL-Fy7" firstAttribute="centerY" secondItem="Icl-7x-rUo" secondAttribute="centerY" id="qPY-gy-atR"/>
                             <constraint firstItem="b2r-ih-gwV" firstAttribute="centerY" secondItem="Icl-7x-rUo" secondAttribute="centerY" id="tHJ-b0-pNn"/>
+                            <constraint firstItem="Ygo-3H-4Pz" firstAttribute="trailing" secondItem="KcP-ib-B3N" secondAttribute="trailing" constant="42" id="wgR-2R-ueB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ygo-3H-4Pz"/>
                     </view>
@@ -227,6 +233,7 @@
                         <outlet property="artistLabel" destination="RxW-ez-5z1" id="jUS-zY-bDz"/>
                         <outlet property="artworkImageView" destination="Iff-Jp-2Qu" id="oEK-3n-lKW"/>
                         <outlet property="backgroundImageView" destination="zf7-QO-4DA" id="hiy-Wy-Fkz"/>
+                        <outlet property="currentTimeSlider" destination="kao-wk-Ovx" id="yrl-Mo-AGH"/>
                         <outlet property="nameLabel" destination="KcP-ib-B3N" id="2jq-o8-o3Q"/>
                         <outlet property="nextButton" destination="b2r-ih-gwV" id="eKj-xF-wv6"/>
                         <outlet property="pauseButton" destination="xE4-yo-Qcb" id="JPb-tk-33K"/>
@@ -236,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bdh-8k-XB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1326" y="215"/>
+            <point key="canvasLocation" x="1325.5999999999999" y="214.54272863568218"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8pX-l2-Z0V">
