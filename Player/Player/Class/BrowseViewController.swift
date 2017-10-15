@@ -14,7 +14,8 @@ class BrowseViewController: UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    var songs: Array<SongModel> = []
+    var songs = [SongModel]()
+    var filteredSongs = [SongModel]()
     
     // MARK: Parent methods
     
@@ -87,6 +88,22 @@ class BrowseViewController: UIViewController {
         // Open the player
         self.performSegue(withIdentifier: "goto_player", sender: song)
     }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredSongs = songs.filter({( song : SongModel) -> Bool in
+            return song.name.lowercased().contains(searchText.lowercased()) ||
+                    song.artistName.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
 }
 
 // MARK: - Table view delegate methods extension
@@ -97,7 +114,12 @@ extension BrowseViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let song = self.songs[indexPath.row]
+        let song: SongModel
+        if isFiltering() {
+            song = self.filteredSongs[indexPath.row]
+        } else {
+            song = self.songs[indexPath.row]
+        }
         
         self.openPlayer(song: song)
     }
@@ -114,8 +136,13 @@ extension BrowseViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let song = self.songs[indexPath.row]
+        let song: SongModel
         let cell: SongCell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath) as! SongCell
+        if isFiltering() {
+            song = self.filteredSongs[indexPath.row]
+        } else {
+            song = self.songs[indexPath.row]
+        }
         cell.configure(song: song)
         
         return cell
@@ -133,7 +160,10 @@ extension BrowseViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.songs.count
+        if isFiltering() {
+            return filteredSongs.count
+        }
+        return songs.count
     }
 }
 
@@ -169,8 +199,7 @@ extension BrowseViewController: UISearchControllerDelegate {
 // MARK: - Search results updating methods extension
 extension BrowseViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        // TODO: Do more...
-        log.debug("Update Search results")
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }
 
