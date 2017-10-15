@@ -235,6 +235,11 @@
 					573B0C581F8F46A900C650D1 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					573B0C6C1F8F46A900C650D1 = {
 						CreatedOnToolsVersion = 9.0;
