@@ -42,13 +42,9 @@ class PlayerViewController: UIViewController {
         // Configure view
         self.setNeedsStatusBarAppearanceUpdate()
         
-        guard let safeSong = song, let safePreviewUrl = URL(string:safeSong.iTunesPreviewUrl) else {
-            log.error("No song loaded to player because the iTunes Preview URL is wrong")
-            return
+        self.setupSongInformation() {
+            self.updatePlayPauseState()
         }
-        
-        self.setupSongInformation(song: safeSong, songUrl: safePreviewUrl)
-        self.updatePlayPauseState()
     }
     
     deinit {
@@ -87,6 +83,7 @@ class PlayerViewController: UIViewController {
     // MARK: public methods
     
     @objc func onPlayerStateUpdateNotification(_ notification: Notification) {
+        self.setupSongInformation()
         self.updatePlayPauseState()
     }
     
@@ -109,14 +106,19 @@ class PlayerViewController: UIViewController {
         }
     }
     
-    private func setupSongInformation(song: SongModel, songUrl: URL!) {
-        self.nameLabel.text = song.name
-        self.artistLabel.text = song.artistName
-        self.backgroundImageView.setImageFromURL(url: song.artworkUrl)
-        self.artworkImageView.setImageFromURL(url: song.artworkUrl)
+    private func setupSongInformation(completion: (()->())? = nil) {
+        guard let safeSong = song else {
+            log.error("No song loaded to player")
+            return
+        }
+        
+        self.nameLabel.text = safeSong.name
+        self.artistLabel.text = safeSong.artistName
+        self.setArtworkImage()
         self.currentTimeSlider.maximumValue = Float(PlayerManager.shared.player?.duration ?? 0)
-        Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(PlayerViewController.updatePlayerCurrentTime), userInfo: song, repeats: true)
+        Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(PlayerViewController.updatePlayerCurrentTime), userInfo: safeSong, repeats: true)
         self.updatePlayerCurrentTime()
+        completion?()
     }
     
     @objc func updatePlayerCurrentTime() {
@@ -138,5 +140,40 @@ class PlayerViewController: UIViewController {
     private func setupSlider() {
         self.currentTimeSlider.setThumbImage(#imageLiteral(resourceName: "ThumbAudio"), for: .normal)
         self.currentTimeSlider.setThumbImage(#imageLiteral(resourceName: "ThumbAudioSelected"), for: .highlighted)
+    }
+    
+    private func setArtworkImage() {
+        self.artworkImageView.image = UIImage(named: "AppIcon")
+        guard let safeUrlString = self.song?.artworkUrl, let safeUrl = URL(string: safeUrlString) else {
+            return
+        }
+        
+        if let image = SongModel.imagesCache.object(forKey: safeUrlString as NSString) {
+            // Image found in cache
+            self.artworkImageView.image = image
+            return
+        }
+        
+        URLSession.shared.dataTask(with: safeUrl) { (data, response, error) in
+            if error != nil {
+                log.error("Failed fetching image: \(error.debugDescription)")
+                self.artworkImageView.image = nil
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                log.error("Error with HTTPURLResponse or statusCode")
+                self.artworkImageView.image = nil
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let image = UIImage(data: data!) {
+                    SongModel.imagesCache.setObject(image, forKey: safeUrlString as NSString)
+                    self.backgroundImageView.image = image
+                    self.artworkImageView.image = image
+                }
+            }
+            }.resume()
     }
 }

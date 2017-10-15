@@ -6,7 +6,7 @@
 //  Copyright © 2017 Victor Nouvellet. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct SongModel {
     let iTunesId: String
@@ -15,6 +15,8 @@ struct SongModel {
     let artworkUrl: String
     let iTunesPreviewUrl: String
     let iTunesUrl: String
+    
+    static let imagesCache = NSCache<NSString,UIImage>()
 }
 
 extension SongModel {
@@ -65,8 +67,9 @@ extension SongModel {
                 if let attributes = image["attributes"] as? Dictionary<String, Any>,
                     let height = attributes["height"] as? String,
                     let imageUrl = image["label"] as? String, height == "170" {
-                    
-                    artworkUrl = imageUrl
+                    // Little hack to have better resolution
+                    let betterResolutionImageUrl = imageUrl.replacingOccurrences(of: "170x170", with: "300x300")
+                    artworkUrl = betterResolutionImageUrl
                 }
             }
         }

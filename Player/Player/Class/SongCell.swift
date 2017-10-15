@@ -21,16 +21,6 @@ class SongCell: UITableViewCell {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func configure(song: SongModel) {
-        self.song = song
-        self.nameLabel.text = song.name
-        self.artistLabel.text = song.artistName
-        self.artworkImageView.setImageFromURL(url: song.artworkUrl)
-        
-        // Setup play/pause notification
-        setupNotification()
-    }
-    
     @IBAction func playPauseButtonTouched(_ sender: Any) {
         if let player = PlayerManager.shared.player, player.isPlaying {
             PlayerManager.shared.pause()
@@ -41,14 +31,24 @@ class SongCell: UITableViewCell {
         }
     }
     
+    // MARK: Public methods
+    
+    func configure(song: SongModel) {
+        self.song = song
+        self.nameLabel.text = song.name
+        self.artistLabel.text = song.artistName
+        self.setArtworkImage()
+        
+        // Setup play/pause notification
+        setupNotification()
+    }
+    
     func setupNotification() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onPlayerStateUpdateNotification(_:)),
                                                name: PlayerManager.playerStateChangedNotificationName,
                                                object: nil)
     }
-    
-    // MARK: Public methods
     
     @objc func onPlayerStateUpdateNotification(_ notification: Notification) {
         self.updateColor()
@@ -75,5 +75,41 @@ class SongCell: UITableViewCell {
             self.artistLabel.labelize = true
             self.playPauseButton.isHidden = true
         }
+    }
+    
+    // MARK: Private methods
+    
+    private func setArtworkImage() {
+        self.artworkImageView.image = UIImage(named: "AppIcon")
+        guard let safeUrlString = self.song?.artworkUrl, let safeUrl = URL(string: safeUrlString) else {
+            return
+        }
+        
+        if let image = SongModel.imagesCache.object(forKey: safeUrlString as NSString) {
+            // Image found in cache
+            self.artworkImageView.image = image
+            return
+        }
+        
+        URLSession.shared.dataTask(with: safeUrl) { (data, response, error) in
+            if error != nil {
+                log.error("Failed fetching image: \(error.debugDescription)")
+                self.artworkImageView.image = nil
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                log.error("Error with HTTPURLResponse or statusCode")
+                self.artworkImageView.image = nil
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let image = UIImage(data: data!) {
+                    SongModel.imagesCache.setObject(image, forKey: safeUrlString as NSString)
+                    self.artworkImageView.image = image
+                }
+            }
+        }.resume()
     }
 }

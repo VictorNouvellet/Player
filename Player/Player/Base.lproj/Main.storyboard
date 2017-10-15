@@ -143,20 +143,20 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jND-F0-M2K">
-                                <rect key="frame" x="168" y="36" width="38" height="24"/>
+                                <rect key="frame" x="168" y="36" width="38" height="23"/>
                                 <state key="normal" image="CollapseArrow"/>
                                 <connections>
                                     <action selector="collapseButtonTouched:" destination="eyQ-AR-J5M" eventType="touchUpInside" id="TFZ-TX-fzm"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxW-ez-5z1" customClass="MarqueeLabel">
-                                <rect key="frame" x="42" y="448" width="291" height="24.5"/>
+                                <rect key="frame" x="42" y="447" width="291" height="24.5"/>
                                 <fontDescription key="fontDescription" name="Calibri" family="Calibri" pointSize="21"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcP-ib-B3N" customClass="MarqueeLabel">
-                                <rect key="frame" x="42" y="409" width="291" height="29.5"/>
+                                <rect key="frame" x="42" y="408" width="291" height="29.5"/>
                                 <fontDescription key="fontDescription" name="Calibri" family="Calibri" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -202,7 +202,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconPreview" translatesAutoresizingMaskIntoConstraints="NO" id="Iff-Jp-2Qu">
-                                <rect key="frame" x="44" y="96" width="287" height="287"/>
+                                <rect key="frame" x="44" y="95" width="287" height="287"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Iff-Jp-2Qu" secondAttribute="height" multiplier="1:1" id="rpr-uB-PoK"/>
                                 </constraints>
@@ -297,7 +297,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CollapseArrow" width="38" height="24"/>
+        <image name="CollapseArrow" width="38" height="23"/>
         <image name="IconPreview" width="512" height="512"/>
         <image name="LauchScreenBG" width="414" height="736"/>
         <image name="Next" width="40" height="38"/>

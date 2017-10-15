@@ -82,6 +82,13 @@ class BrowseViewController: UIViewController {
         if PlayerManager.shared.song == nil || PlayerManager.shared.song! != song {
             // Set new song
             PlayerManager.shared.song = song
+            
+            // Set new Music Queue
+            let songsForQueue = isFiltering() ? filteredSongs : songs
+            let songIndex = songsForQueue.index(of: song)!
+            PlayerManager.shared.musicQueue = Array(songsForQueue[songIndex..<songsForQueue.count]) +
+                                                Array(songsForQueue[0..<songIndex])
+            PlayerManager.shared.musicQueueIndex = 0
             PlayerManager.shared.play()
         }
         
@@ -121,6 +128,7 @@ extension BrowseViewController: UITableViewDelegate {
             song = self.songs[indexPath.row]
         }
         
+        // Open Player with context
         self.openPlayer(song: song)
     }
     

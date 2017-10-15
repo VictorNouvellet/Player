@@ -31,6 +31,9 @@ class PlayerManager: NSObject {
         }
     }
     
+    var musicQueueIndex = 0
+    var musicQueue = [SongModel]()
+    
     // AppDelegate property
     private var appDelegate: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -52,13 +55,29 @@ class PlayerManager: NSObject {
     }
     
     func next() {
-        self.songEnded = false
-        log.debug("Next: Feature not available yet...")
+        let wasPlaying: Bool = self.player?.isPlaying ?? false
+        self.musicQueueIndex += 1
+        if musicQueueIndex > musicQueue.count-1 {
+            self.musicQueueIndex = 0
+        }
+        self.song = self.musicQueue[musicQueueIndex]
+        if wasPlaying {
+            self.player?.play()
+        }
+        NotificationCenter.default.post(name: PlayerManager.playerStateChangedNotificationName, object: nil)
     }
     
     func previous() {
-        self.songEnded = false
-        log.debug("Previous: Feature not available yet...")
+        let wasPlaying: Bool = self.player?.isPlaying ?? false
+        musicQueueIndex -= 1
+        if musicQueueIndex < 0 {
+            self.musicQueueIndex = (musicQueue.count == 0) ? 0 : musicQueue.count - 1
+        }
+        self.song = musicQueue[musicQueueIndex]
+        if wasPlaying {
+            self.player?.play()
+        }
+        NotificationCenter.default.post(name: PlayerManager.playerStateChangedNotificationName, object: nil)
     }
     
     // MARK: - Private methods
