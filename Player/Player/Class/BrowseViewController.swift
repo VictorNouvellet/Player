@@ -39,10 +39,13 @@ class BrowseViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         // Fix Apple broken behavior with collapsing large titles
         // Problem submitted here: https://forums.developer.apple.com/thread/83262
         if #available(iOS 11.0, *) {
             self.navigationItem.largeTitleDisplayMode = .always
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                                                                            NSAttributedStringKey.font: UIFont.mainBoldFont.withSize(40)]
         }
     }
     
@@ -100,7 +103,7 @@ extension BrowseViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 60
     }
 }
 
@@ -148,7 +151,8 @@ extension BrowseViewController: UISearchControllerDelegate {
             tableView.tableHeaderView = searchController.searchBar
         }
         
-        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.placeholder = "Search for songs"
+        
         definesPresentationContext = true
         searchController.dimsBackgroundDuringPresentation = false
     }

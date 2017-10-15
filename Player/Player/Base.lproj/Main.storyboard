@@ -11,6 +11,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Calibri.ttf">
+            <string>Calibri</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Browser-->
         <scene sceneID="Tj7-nl-Sbc">
@@ -20,9 +25,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="PP4-Ij-36C">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PP4-Ij-36C">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCell" rowHeight="70" id="NrK-Px-0Kp" customClass="SongCell" customModule="Player" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
@@ -32,8 +37,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist name loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Nd-76-xRf" customClass="MarqueeLabel">
-                                                    <rect key="frame" x="65" y="37" width="266" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="67" y="36" width="264" height="16.5"/>
+                                                    <fontDescription key="fontDescription" name="Calibri" family="Calibri" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -43,10 +48,24 @@
                                                         <constraint firstAttribute="width" secondItem="Jpe-jG-HZk" secondAttribute="height" multiplier="1:1" id="bhP-id-O59"/>
                                                         <constraint firstAttribute="height" constant="50.5" id="mxG-yq-9x3"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                            <size key="value" width="0.0" height="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                            <integer key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                            <real key="value" value="0.29999999999999999"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song name loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhS-Sn-N9k" customClass="MarqueeLabel">
-                                                    <rect key="frame" x="65" y="14" width="266" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="67" y="14" width="264" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Calibri" family="Calibri" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -65,12 +84,12 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="5Nd-76-xRf" secondAttribute="trailing" constant="44" id="1yj-MF-KSt"/>
                                                 <constraint firstAttribute="trailing" secondItem="fhS-Sn-N9k" secondAttribute="trailing" constant="44" id="8uR-1d-FTH"/>
-                                                <constraint firstItem="fhS-Sn-N9k" firstAttribute="leading" secondItem="Jpe-jG-HZk" secondAttribute="trailing" constant="6" id="AiG-xz-mug"/>
+                                                <constraint firstItem="fhS-Sn-N9k" firstAttribute="leading" secondItem="Jpe-jG-HZk" secondAttribute="trailing" constant="8" id="AiG-xz-mug"/>
                                                 <constraint firstItem="s0R-c9-WAQ" firstAttribute="centerY" secondItem="lQx-Li-oPM" secondAttribute="centerY" id="Kc6-FE-XsP"/>
                                                 <constraint firstItem="s0R-c9-WAQ" firstAttribute="trailing" secondItem="lQx-Li-oPM" secondAttribute="trailingMargin" id="R14-NJ-UYd"/>
                                                 <constraint firstItem="Jpe-jG-HZk" firstAttribute="leading" secondItem="lQx-Li-oPM" secondAttribute="leading" constant="8" id="gWS-ho-fY6"/>
                                                 <constraint firstItem="fhS-Sn-N9k" firstAttribute="top" secondItem="Jpe-jG-HZk" secondAttribute="top" constant="4" id="jSC-Js-PU0"/>
-                                                <constraint firstItem="5Nd-76-xRf" firstAttribute="leading" secondItem="Jpe-jG-HZk" secondAttribute="trailing" constant="6" id="mpo-ny-END"/>
+                                                <constraint firstItem="5Nd-76-xRf" firstAttribute="leading" secondItem="Jpe-jG-HZk" secondAttribute="trailing" constant="8" id="mpo-ny-END"/>
                                                 <constraint firstItem="Jpe-jG-HZk" firstAttribute="centerY" secondItem="lQx-Li-oPM" secondAttribute="centerY" id="o8w-kI-oFd"/>
                                                 <constraint firstItem="5Nd-76-xRf" firstAttribute="top" secondItem="fhS-Sn-N9k" secondAttribute="bottom" constant="2" id="xIG-Gt-uAi"/>
                                             </constraints>
@@ -97,7 +116,7 @@
                     <navigationItem key="navigationItem" title="Browser" largeTitleDisplayMode="never" id="LZN-Jx-Dmq"/>
                     <connections>
                         <outlet property="tableView" destination="PP4-Ij-36C" id="QS1-yx-eym"/>
-                        <segue destination="eyQ-AR-J5M" kind="presentation" identifier="goto_player" modalPresentationStyle="overFullScreen" modalTransitionStyle="coverVertical" id="KOp-jz-7UW"/>
+                        <segue destination="eyQ-AR-J5M" kind="presentation" identifier="goto_player" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="KOp-jz-7UW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Lp-DE-eYy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -131,14 +150,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxW-ez-5z1" customClass="MarqueeLabel">
-                                <rect key="frame" x="42" y="448.5" width="291" height="25.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <rect key="frame" x="42" y="448" width="291" height="24.5"/>
+                                <fontDescription key="fontDescription" name="Calibri" family="Calibri" pointSize="21"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcP-ib-B3N" customClass="MarqueeLabel">
-                                <rect key="frame" x="42" y="409" width="291" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <rect key="frame" x="42" y="409" width="291" height="29.5"/>
+                                <fontDescription key="fontDescription" name="Calibri" family="Calibri" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -257,9 +276,15 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DZN-nM-uFF" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="jcz-Nt-ryM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" shadowImage="LauchScreenBG" backIndicatorImage="LauchScreenBG" largeTitles="YES" backIndicatorTransitionMaskImage="LauchScreenBG" id="jcz-Nt-ryM">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Calibri-Bold" family="Calibri" pointSize="21"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" name="Calibri-Bold" family="Calibri" pointSize="21"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -274,6 +299,7 @@
     <resources>
         <image name="CollapseArrow" width="38" height="24"/>
         <image name="IconPreview" width="512" height="512"/>
+        <image name="LauchScreenBG" width="414" height="736"/>
         <image name="Next" width="40" height="38"/>
         <image name="Pause" width="92" height="92"/>
         <image name="Play" width="92" height="92"/>

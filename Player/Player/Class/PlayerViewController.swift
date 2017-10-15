@@ -40,6 +40,8 @@ class PlayerViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // Configure view
+        self.setNeedsStatusBarAppearanceUpdate()
+        
         guard let safeSong = song, let safePreviewUrl = URL(string:safeSong.iTunesPreviewUrl) else {
             log.error("No song loaded to player because the iTunes Preview URL is wrong")
             return
@@ -51,6 +53,10 @@ class PlayerViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: Interface Builder methods
