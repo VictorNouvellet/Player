@@ -162,6 +162,7 @@ extension BrowseViewController: UISearchControllerDelegate {
     }
 }
 
+// MARK: - Search results updating methods extension
 extension BrowseViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         // TODO: Do more...
@@ -169,6 +170,7 @@ extension BrowseViewController: UISearchResultsUpdating {
     }
 }
 
+// MARK: - Previewing delegate methods extension
 extension BrowseViewController: UIViewControllerPreviewingDelegate {
     func configurePreviewingDelegate() {
         if self.traitCollection.forceTouchCapability == .available {

@@ -29,4 +29,29 @@ class SongDetailViewController: UIViewController {
         artworkImageView.bounds.origin = self.view.bounds.origin
         artworkImageView.setImageFromURL(url: song.artworkUrl)
     }
+    
+    override var previewActionItems: [UIPreviewActionItem] {
+        let playing: Bool = (PlayerManager.shared.song == self.song && PlayerManager.shared.player?.isPlaying ?? false)
+        let playAction = UIPreviewAction(title: (playing ? "Pause" : "Play"), style: .default) { (action, viewController) in
+            if playing {
+                PlayerManager.shared.pause()
+            } else {
+                if PlayerManager.shared.song != self.song { PlayerManager.shared.song = self.song }
+                PlayerManager.shared.play()
+            }
+        }
+        let shareAction = UIPreviewAction(title: "Share", style: .default) { (action, viewController) in
+            guard let iTunesUrlString = self.song?.iTunesUrl, let iTunesUrl = URL(string: iTunesUrlString) else {
+                log.error("Error when sharing song : iTunes URL is wrong")
+                return
+            }
+            log.debug("Action: \(action), viewcontroller: \(viewController)")
+            let activityController = UIActivityViewController(activityItems: [iTunesUrl], applicationActivities: nil)
+            
+            UIApplication.shared.keyWindow!.rootViewController!.childViewControllers.last!.present(activityController, animated: true, completion: {
+                // Do something when shared
+            })
+        }
+        return [playAction, shareAction]
+    }
 }
