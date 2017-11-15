@@ -1,4 +1,9 @@
 PODS:
+  - IGListKit (3.0.0):
+    - IGListKit/Default (= 3.0.0)
+  - IGListKit/Default (3.0.0):
+    - IGListKit/Diffing
+  - IGListKit/Diffing (3.0.0)
   - MarqueeLabel (3.0.3):
     - MarqueeLabel/ObjC (= 3.0.3)
   - MarqueeLabel/ObjC (3.0.3)
@@ -8,15 +13,17 @@ PODS:
   - XCGLogger/Core (4.0.0)
 
 DEPENDENCIES:
+  - IGListKit (= 3.0.0)
   - MarqueeLabel
   - MBProgressHUD
   - XCGLogger (~> 4.0.0)
 
 SPEC CHECKSUMS:
+  IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
   MarqueeLabel: 355b604a19c16a8736194a21327fadccc41b9160
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: f2a4a16e501aeeb9bf17eb9134fe0a5b11b5ddad
+PODFILE CHECKSUM: a10712f5c468f69d4a6fcc13902a7746b4d43e34
 
 COCOAPODS: 1.3.1

@@ -7,42 +7,16 @@
 //
 
 import UIKit
+import IGListKit
 
-struct SongModel {
-    let iTunesId: String
-    let name: String
-    let artistName: String
-    let artworkUrl: String
-    let iTunesPreviewUrl: String
-    let iTunesUrl: String
-    
-    static let imagesCache = NSCache<NSString,UIImage>()
+protocol DictionaryDeserializable {
+    init?(dictionary: [AnyHashable: Any])
 }
 
-extension SongModel {
-    /// Parse result of https://itunes.apple.com/FR/rss/topsongs/limit=10/json
-    static func parseITunesSongsFromRSS(responseObject: Any?) -> Array<SongModel> {
-        guard let safeOriginObject = responseObject as? Dictionary<String, Any>,
-            let safeFeed = safeOriginObject["feed"] as? Dictionary<String, Any>,
-            let safeResults = safeFeed["entry"] as? Array<Any>
-            else {
-                return []
-        }
-        
-        var songs: Array<SongModel> = []
-        
-        for songJSON in safeResults {
-            if let song = SongModel.parseITunesSong(responseObject: songJSON) {
-                songs.append(song)
-            }
-        }
-        
-        return songs
-    }
+class SongModel: DictionaryDeserializable {
     
-    /// Parse individual entry of https://itunes.apple.com/FR/rss/topsongs/limit=10/json
-    static func parseITunesSong(responseObject: Any?) -> SongModel? {
-        guard let safeSongObject = responseObject as? Dictionary<String, Any>
+    required init?(dictionary: [AnyHashable : Any]) {
+        guard let safeSongObject = dictionary as? [String : Any]
             else {
                 return nil
         }
@@ -50,7 +24,7 @@ extension SongModel {
         var iTunesId: String? = nil
         if let id = safeSongObject["id"] as? Dictionary<String, Any>,
             let attributes = id["attributes"] as? Dictionary<String, Any> {
-                iTunesId = attributes["im:id"] as? String
+            iTunesId = attributes["im:id"] as? String
         }
         
         var name: String? = nil
@@ -95,15 +69,72 @@ extension SongModel {
         }
         
         if (iTunesId != nil) && (name != nil) && (artistName != nil) && (artworkUrl != nil) {
-            return SongModel(iTunesId: iTunesId!, name: name!, artistName: artistName!, artworkUrl: artworkUrl!, iTunesPreviewUrl: iTunesPreviewUrl!, iTunesUrl: iTunesUrl!)
+            self.iTunesId = iTunesId!
+            self.name = name!
+            self.artistName = artistName!
+            self.artworkUrl = artworkUrl!
+            self.iTunesPreviewUrl = iTunesPreviewUrl!
+            self.iTunesUrl = iTunesUrl!
+        } else {
+            return nil
+        }
+    }
+    
+    let iTunesId: String
+    let name: String
+    let artistName: String
+    let artworkUrl: String
+    let iTunesPreviewUrl: String
+    let iTunesUrl: String
+    
+    static let imagesCache = NSCache<NSString,UIImage>()
+}
+
+extension SongModel {
+    /// Parse result of https://itunes.apple.com/FR/rss/topsongs/limit=10/json
+    static func parseITunesSongsFromRSS(responseObject: Any?) -> Array<SongModel> {
+        guard let safeOriginObject = responseObject as? Dictionary<String, Any>,
+            let safeFeed = safeOriginObject["feed"] as? Dictionary<String, Any>,
+            let safeResults = safeFeed["entry"] as? Array<Any>
+            else {
+                return []
         }
         
-        return nil
+        var songs: Array<SongModel> = []
+        
+        for songJSON in safeResults {
+            if let song = SongModel.parseITunesSong(responseObject: songJSON) {
+                songs.append(song)
+            }
+        }
+        
+        return songs
+    }
+    
+    /// Parse individual entry of https://itunes.apple.com/FR/rss/topsongs/limit=10/json
+    static func parseITunesSong(responseObject: Any?) -> SongModel? {
+        if let safeSongObject = responseObject as? Dictionary<String, Any>, let song = SongModel(dictionary: safeSongObject) {
+            return song
+        } else {
+            return nil
+        }
     }
 }
 
 extension SongModel: Equatable {
     static func ==(lhs: SongModel, rhs: SongModel) -> Bool {
         return lhs.iTunesId == rhs.iTunesId
+    }
+}
+
+extension SongModel: ListDiffable {
+    func diffIdentifier() -> NSObjectProtocol {
+        return self.iTunesId as NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        guard self !== object else { return true }
+        guard let object = object as? SongModel else { return false }
+        return self == object
     }
 }

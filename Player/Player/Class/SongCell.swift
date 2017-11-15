@@ -9,13 +9,13 @@
 import UIKit
 import MarqueeLabel
 
-class SongCell: UITableViewCell {
+class SongCell: UICollectionViewCell {
     var song: SongModel? = nil
     
-    @IBOutlet var nameLabel: MarqueeLabel!
-    @IBOutlet var artistLabel: MarqueeLabel!
-    @IBOutlet var artworkImageView: UIImageView!
-    @IBOutlet var playPauseButton: UIButton!
+    @IBOutlet weak var nameLabel: MarqueeLabel?
+    @IBOutlet weak var artistLabel: MarqueeLabel?
+    @IBOutlet weak var artworkImageView: UIImageView?
+    @IBOutlet weak var playPauseButton: UIButton?
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -35,8 +35,8 @@ class SongCell: UITableViewCell {
     
     func configure(song: SongModel) {
         self.song = song
-        self.nameLabel.text = song.name
-        self.artistLabel.text = song.artistName
+        self.nameLabel?.text = song.name
+        self.artistLabel?.text = song.artistName
         self.setArtworkImage()
         
         // Setup play/pause notification
@@ -57,57 +57,57 @@ class SongCell: UITableViewCell {
     func updateColor() {
         if let song = self.song, song.name == PlayerManager.shared.song?.name && !(PlayerManager.shared.songEnded) {
             self.backgroundColor = UIColor.darkGray
-            self.nameLabel.textColor = UIColor.white
-            self.artistLabel.textColor = UIColor.white
-            self.nameLabel.labelize = false
-            self.artistLabel.labelize = false
-            self.playPauseButton.isHidden = false
+            self.nameLabel?.textColor = UIColor.white
+            self.artistLabel?.textColor = UIColor.white
+            self.nameLabel?.labelize = false
+            self.artistLabel?.labelize = false
+            self.playPauseButton?.isHidden = false
             if let player = PlayerManager.shared.player, player.isPlaying {
-                self.playPauseButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
+                self.playPauseButton?.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
             } else {
-                self.playPauseButton.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
+                self.playPauseButton?.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
             }
         } else {
             self.backgroundColor = UIColor.white
-            self.nameLabel.textColor = UIColor.black
-            self.artistLabel.textColor = UIColor.black
-            self.nameLabel.labelize = true
-            self.artistLabel.labelize = true
-            self.playPauseButton.isHidden = true
+            self.nameLabel?.textColor = UIColor.black
+            self.artistLabel?.textColor = UIColor.black
+            self.nameLabel?.labelize = true
+            self.artistLabel?.labelize = true
+            self.playPauseButton?.isHidden = true
         }
     }
     
     // MARK: Private methods
     
     private func setArtworkImage() {
-        self.artworkImageView.image = UIImage(named: "AppIcon")
+//        self.artworkImageView?.image = #imageLiteral(resourceName: "IconPreview")
         guard let safeUrlString = self.song?.artworkUrl, let safeUrl = URL(string: safeUrlString) else {
             return
         }
         
         if let image = SongModel.imagesCache.object(forKey: safeUrlString as NSString) {
             // Image found in cache
-            self.artworkImageView.image = image
+            self.artworkImageView?.image = image
             return
         }
         
         URLSession.shared.dataTask(with: safeUrl) { (data, response, error) in
             if error != nil {
                 log.error("Failed fetching image: \(error.debugDescription)")
-                self.artworkImageView.image = nil
+                self.artworkImageView?.image = nil
                 return
             }
             
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 log.error("Error with HTTPURLResponse or statusCode")
-                self.artworkImageView.image = nil
+                self.artworkImageView?.image = nil
                 return
             }
             
             DispatchQueue.main.async {
                 if let image = UIImage(data: data!) {
                     SongModel.imagesCache.setObject(image, forKey: safeUrlString as NSString)
-                    self.artworkImageView.image = image
+                    self.artworkImageView?.image = image
                 }
             }
         }.resume()

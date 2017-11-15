@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import IGListKit
 
 class BrowseViewController: UIViewController {
     
-    @IBOutlet var tableView: UITableView!
-    
+    @IBOutlet weak var collectionView: UICollectionView!
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    }()
     let searchController = UISearchController(searchResultsController: nil)
     
     var songs = [SongModel]()
@@ -22,17 +25,15 @@ class BrowseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set Table View delegate using extension's method
-        self.configureTableViewDelegate()
-        
-        // Set Table View datasource using extension's method
-        self.configureTableViewDataSource()
-        
         // Set Search bar delegate using extension's method
         self.configureSearchController()
         
         // Set Previewing delegate using extension's method
         self.configurePreviewingDelegate()
+        
+        // Configure list
+        self.adapter.collectionView = self.collectionView
+        self.adapter.dataSource = self
         
         // Fetch songs
         self.fetchTop100songs()
@@ -46,7 +47,7 @@ class BrowseViewController: UIViewController {
         if #available(iOS 11.0, *) {
             self.navigationItem.largeTitleDisplayMode = .always
             self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                                                                            NSAttributedStringKey.font: UIFont.mainBoldFont.withSize(40)]
+                                                                            NSAttributedStringKey.font: UIFont.mainBoldFont]
         }
     }
     
@@ -65,20 +66,19 @@ class BrowseViewController: UIViewController {
             guard error == nil else {
                 log.error("Error when fetching songs")
                 self.songs = []
-                self.tableView.reloadData()
                 return
             }
             let newSongs = SongModel.parseITunesSongsFromRSS(responseObject: response)
             if newSongs.count != 0 {
                 self.songs = newSongs
+                self.adapter.performUpdates(animated: true, completion: nil)
             } else {
                 log.error("No songs")
             }
-            self.tableView.reloadData()
         }
     }
     
-    private func openPlayer(song: SongModel) {
+    func openPlayer(song: SongModel) {
         if PlayerManager.shared.song == nil || PlayerManager.shared.song! != song {
             // Set new song
             PlayerManager.shared.song = song
@@ -101,7 +101,6 @@ class BrowseViewController: UIViewController {
             return song.name.lowercased().contains(searchText.lowercased()) ||
                     song.artistName.lowercased().contains(searchText.lowercased())
         })
-        tableView.reloadData()
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -113,14 +112,15 @@ class BrowseViewController: UIViewController {
     }
 }
 
+// TODO: REMOVE
 // MARK: - Table view delegate methods extension
-extension BrowseViewController: UITableViewDelegate {
+extension BrowseViewController: UICollectionViewDelegate {
     func configureTableViewDelegate() {
-        self.tableView.delegate = self
+        self.collectionView.delegate = self
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         let song: SongModel
         if isFiltering() {
             song = self.filteredSongs[indexPath.row]
@@ -131,21 +131,18 @@ extension BrowseViewController: UITableViewDelegate {
         // Open Player with context
         self.openPlayer(song: song)
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
 }
 
+// TODO: REMOVE
 // MARK: - Table view data source methods extension
-extension BrowseViewController: UITableViewDataSource {
+extension BrowseViewController: UICollectionViewDataSource {
     func configureTableViewDataSource() {
-        self.tableView.dataSource = self
+        self.collectionView.dataSource = self
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let song: SongModel
-        let cell: SongCell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath) as! SongCell
+        let cell: SongCell = collectionView.dequeueReusableCell(withReuseIdentifier: "songCell", for: indexPath) as! SongCell
         if isFiltering() {
             song = self.filteredSongs[indexPath.row]
         } else {
@@ -156,22 +153,35 @@ extension BrowseViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let songCell: SongCell = cell as? SongCell else {
             return
         }
         songCell.updateColor()
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isFiltering() {
             return filteredSongs.count
         }
         return songs.count
+    }
+}
+
+extension BrowseViewController: ListAdapterDataSource {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        if isFiltering() {
+            return filteredSongs as [ListDiffable]
+        }
+        return songs as [ListDiffable]
+    }
+    
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        return SongSectionController(presentingVC: self)
+    }
+    
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return nil
     }
 }
 
@@ -186,7 +196,8 @@ extension BrowseViewController: UISearchControllerDelegate {
             navigationItem.hidesSearchBarWhenScrolling = true
             
         } else {
-            tableView.tableHeaderView = searchController.searchBar
+            // TODO: Add searchbar to collectionview header
+//            tableView.tableHeaderView = searchController.searchBar
         }
         
         searchController.searchBar.placeholder = "Search for songs"
@@ -208,6 +219,7 @@ extension BrowseViewController: UISearchControllerDelegate {
 extension BrowseViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
+        self.adapter.performUpdates(animated: true, completion: nil)
     }
 }
 
@@ -215,14 +227,14 @@ extension BrowseViewController: UISearchResultsUpdating {
 extension BrowseViewController: UIViewControllerPreviewingDelegate {
     func configurePreviewingDelegate() {
         if self.traitCollection.forceTouchCapability == .available {
-            self.registerForPreviewing(with: self, sourceView: self.tableView)
+            self.registerForPreviewing(with: self, sourceView: self.collectionView)
         }
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = self.tableView.indexPathForRow(at: location) {
+        if let indexPath = self.collectionView.indexPathForItem(at: location), let cell = self.collectionView.cellForItem(at: indexPath) {
             
-            previewingContext.sourceRect = self.tableView.rectForRow(at:indexPath)
+            previewingContext.sourceRect = cell.frame
             
             let song = self.songs[indexPath.row]
             

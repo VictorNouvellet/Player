@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1678F24DB98A99C1963C9E79 /* Pods_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CD5469EE91E0439E6C4362 /* Pods_Player.framework */; };
+		57392F181FBCB0FA0080B9EF /* SongSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57392F171FBCB0FA0080B9EF /* SongSectionController.swift */; };
 		573B0C5D1F8F46A900C650D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0C5C1F8F46A900C650D1 /* AppDelegate.swift */; };
 		573B0C5F1F8F46A900C650D1 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0C5E1F8F46A900C650D1 /* BrowseViewController.swift */; };
 		573B0C621F8F46A900C650D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 573B0C601F8F46A900C650D1 /* Main.storyboard */; };
-		573B0C641F8F46A900C650D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 573B0C631F8F46A900C650D1 /* Assets.xcassets */; };
 		573B0C671F8F46A900C650D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 573B0C651F8F46A900C650D1 /* LaunchScreen.storyboard */; };
 		573B0C721F8F46A900C650D1 /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0C711F8F46A900C650D1 /* PlayerTests.swift */; };
 		57577EE41F8F545C00CEFEDD /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57577EE31F8F545C00CEFEDD /* APIClient.swift */; };
@@ -19,6 +19,7 @@
 		57577EEA1F8FA5CB00CEFEDD /* UIImageView+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57577EE91F8FA5CB00CEFEDD /* UIImageView+Player.swift */; };
 		57577EEE1F8FA76900CEFEDD /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57577EED1F8FA76900CEFEDD /* SongCell.swift */; };
 		576A6C731F8FD26A00D6C623 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576A6C721F8FD26A00D6C623 /* PlayerViewController.swift */; };
+		5776C1701FBD8C8700E5B6DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 573B0C631F8F46A900C650D1 /* Assets.xcassets */; };
 		577919331F93CAC000884D42 /* CalibriBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 577919321F93C82100884D42 /* CalibriBold.ttf */; };
 		577919371F93E2B500884D42 /* UIFont+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577919361F93E2B500884D42 /* UIFont+Player.swift */; };
 		5784DD6F1F929EF600ECC750 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5784DD6E1F929EF600ECC750 /* PlayerManager.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		2983221608E009289A686396 /* Pods-Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Player/Pods-Player.debug.xcconfig"; sourceTree = "<group>"; };
+		57392F171FBCB0FA0080B9EF /* SongSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSectionController.swift; sourceTree = "<group>"; };
 		573B0C591F8F46A900C650D1 /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		573B0C5C1F8F46A900C650D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		573B0C5E1F8F46A900C650D1 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				573B0C5E1F8F46A900C650D1 /* BrowseViewController.swift */,
 				57577EED1F8FA76900CEFEDD /* SongCell.swift */,
 				576A6C721F8FD26A00D6C623 /* PlayerViewController.swift */,
+				57392F171FBCB0FA0080B9EF /* SongSectionController.swift */,
 				57E843E21F930C79001BA71D /* SongDetailViewController.swift */,
 			);
 			path = Class;
@@ -293,7 +296,7 @@
 			files = (
 				577919331F93CAC000884D42 /* CalibriBold.ttf in Resources */,
 				573B0C671F8F46A900C650D1 /* LaunchScreen.storyboard in Resources */,
-				573B0C641F8F46A900C650D1 /* Assets.xcassets in Resources */,
+				5776C1701FBD8C8700E5B6DF /* Assets.xcassets in Resources */,
 				573B0C621F8F46A900C650D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,12 +381,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Player/Pods-Player-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
@@ -426,6 +431,7 @@
 				577919371F93E2B500884D42 /* UIFont+Player.swift in Sources */,
 				57577EE71F8F8B7E00CEFEDD /* SongModel.swift in Sources */,
 				57577EEE1F8FA76900CEFEDD /* SongCell.swift in Sources */,
+				57392F181FBCB0FA0080B9EF /* SongSectionController.swift in Sources */,
 				5784DD6F1F929EF600ECC750 /* PlayerManager.swift in Sources */,
 				57577EE41F8F545C00CEFEDD /* APIClient.swift in Sources */,
 			);
@@ -582,11 +588,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JKBPKH2QVT;
+				DEVELOPMENT_TEAM = VLVG4WT7DU;
 				INFOPLIST_FILE = Player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.victornouvellet.Player;
+				PRODUCT_BUNDLE_IDENTIFIER = com.victor.Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -599,11 +605,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JKBPKH2QVT;
+				DEVELOPMENT_TEAM = VLVG4WT7DU;
 				INFOPLIST_FILE = Player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.victornouvellet.Player;
+				PRODUCT_BUNDLE_IDENTIFIER = com.victor.Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -617,7 +623,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JKBPKH2QVT;
+				DEVELOPMENT_TEAM = VLVG4WT7DU;
 				INFOPLIST_FILE = PlayerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.victornouvellet.PlayerTests;
@@ -635,7 +641,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JKBPKH2QVT;
+				DEVELOPMENT_TEAM = VLVG4WT7DU;
 				INFOPLIST_FILE = PlayerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.victornouvellet.PlayerTests;
